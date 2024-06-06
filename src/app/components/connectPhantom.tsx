@@ -64,12 +64,12 @@ export default function ConnectPhantom() {
     }, [provider])
 
     return (
-        <div className='w-full h-screen text-center bg-black text-white space-y-2 pt-20'>
+        <div className='text-center space-y-2 pt-20'>
             {walletAvailable ? 
                 <>
-                    <button disabled={connected} onClick={connectHandler} className='mx-auto border border-white px-4 py-2 rounded-lg'>Connect Wallet</button>
+                    <button disabled={connected} onClick={connectHandler} className='mx-auto border border-black px-4 py-2 rounded-lg'>Connect Wallet</button>
                     <br />
-                    <button disabled={!connected} onClick={disconnectHandler} className='mx-auto border border-white px-4 py-2 rounded-lg'>Disconnect Wallet</button>
+                    <button disabled={!connected} onClick={disconnectHandler} className='mx-auto border border-black px-4 py-2 rounded-lg'>Disconnect Wallet</button>
                     { connected ? <p>Public Key: {hasPublicKey?.toBase58()}</p> : null }
                 </>
                 :
