@@ -1,5 +1,33 @@
-import { Transaction, SystemProgram, Connection, PublicKey } from "@solana/web3.js"
-import { PhantomProvider } from "../types"
+import { Transaction, SystemProgram, Connection, PublicKey, SendOptions } from "@solana/web3.js"
+
+type DisplayEncoding = "utf8" | "hex"
+type PhantomEvent = "disconnect" | "connect" | "accountChanged"
+type PhantomReqestMethod = | "connect" | "disconnect" | "signAndSendTransacion" | "signTransaction" | "signAllTransactions" | "signMessage"
+
+interface ConnectOpts {
+    onlyIfTrusted: boolean
+}
+
+export interface PhantomProvider {
+    publicKey: PublicKey | null
+    isConnected: boolean | null
+    signAndSendTransaction: ( transaction: Transaction, opts?: SendOptions ) => Promise<{ signature: string, publicKey: PublicKey }>
+    signTransaction: (transaction: Transaction) => Promise<Transaction>
+    signAllTransactions: (transaction: Transaction[]) => Promise<Transaction[]>
+    signMessage: (message: Uint8Array | string, display?: DisplayEncoding) => Promise<any>
+    connect: (opts?: Partial<ConnectOpts>) => Promise<{publicKey: PublicKey}>
+    disconnect: () => Promise<void>
+    on: (event: PhantomEvent, handler: (args: any) => void) => void
+    request: (method: PhantomReqestMethod, params: any) => Promise<unknown>
+}
+
+export type Status = "success" | "warning" | "error" | "info"
+
+interface WindowWithSolana extends Window {
+    phantom?: {
+        solana?: PhantomProvider;
+    };
+}
 
 export async function createTransferTransaction(
     publicKey: PublicKey, connection: Connection
@@ -21,11 +49,16 @@ export async function createTransferTransaction(
 
 export function getProvider(): PhantomProvider | undefined {
     if (typeof window !== "undefined" && "phantom" in window) {
-        const anyWindow: any = window
-        const provider = anyWindow.phantom?.solana
-        return provider
+        const { phantom } = window as WindowWithSolana;
+        console.log('Phantom wallet detected:', phantom);
+
+        if (phantom) {
+            console.log('Phantom wallet is connected:', phantom.solana);
+            return phantom.solana;
+        }
+    } else {
+        console.log('Window object or Phantom wallet not found.');
     }
-    return undefined
 }
 
 export async function signAllTransactions(
