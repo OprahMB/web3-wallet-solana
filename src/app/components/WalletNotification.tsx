@@ -2,7 +2,7 @@
 import { toast } from 'sonner';
 // import 'twin.macro'
 
-import { IUnifiedWalletConfig, IWalletNotification } from '@/app/contexts/WalletConnectionProvider';
+import { IUnifiedWalletConfig, IWalletNotification } from '@/app/contexts/WalletConnectionProvider/index';
 
 const WalletNotification: IUnifiedWalletConfig['notificationCallback'] = {
   onConnect: (props: IWalletNotification) => {

@@ -7,6 +7,7 @@ import PhantomWallet from './components/PhantomWallet'
 import AppWalletProvider from "./components/AppWalletProvider"
 import WalletAirdrop from "@/app/address/page"
 import UnifiedWalletKit from "@/app/components/UnifiedWalletKit"
+import ChainStack from "@/app/sendTransaction/page"
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
       </div>
       <ConnectPhantom />
       <PhantomWallet />
+      <ChainStack />
     </main>
   );
 }
