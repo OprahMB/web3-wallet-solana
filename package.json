@@ -16,11 +16,16 @@
     "@solana/wallet-adapter-react-ui": "^0.9.35",
     "@solana/wallet-adapter-wallets": "^0.19.32",
     "@solana/web3.js": "^1.92.1",
+    "@walletconnect/client": "^1.8.0",
+    "@walletconnect/web3-provider": "^1.8.0",
+    "immer": "^10.1.1",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
     "sonner": "^1.4.41",
-    "thirdweb": "^5.28.0"
+    "thirdweb": "^5.28.0",
+    "web3-core": "^4.4.0",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@types/node": "^20",
